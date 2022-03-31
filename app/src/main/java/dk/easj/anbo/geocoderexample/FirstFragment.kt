@@ -29,7 +29,7 @@ class FirstFragment : Fragment() {
         val locationName = "Maglegårdsvej 2, 4000 Roskilde, Denmark"
         binding.textviewFirst.text = "Geocoding: Address -> (lat, long)\n"
         binding.textviewFirst.append(locationName + "\n")
-        val addressList: MutableList<Address> = geocoder.getFromLocationName(locationName, 5)
+        val addressList: List<Address> = geocoder.getFromLocationName(locationName, 5)
         for (address in addressList) {
             binding.textviewFirst.append("Lat: ${address.latitude} Long: ${address.longitude}\n")
         }
@@ -40,8 +40,8 @@ class FirstFragment : Fragment() {
         binding.textviewAnother.text = "Reverse geocoding: (lat, long) -> addresses\n"
         binding.textviewAnother.append("Lat: $latitude Long: $longitude\n")
         val addressList2 = geocoder.getFromLocation(latitude, longitude, 5)
-        for (addr in addressList2) {
-            binding.textviewAnother.append(addr.getAddressLine(0) + "\n")
+        for (address in addressList2) {
+            binding.textviewAnother.append(address.getAddressLine(0) + "\n")
         }
 
         /* binding.buttonFirst.setOnClickListener {
