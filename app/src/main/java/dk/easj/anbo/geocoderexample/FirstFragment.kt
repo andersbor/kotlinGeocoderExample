@@ -49,18 +49,18 @@ class FirstFragment : Fragment() {
             }
         }*/
 
-       /* if (Build.VERSION.SDK_INT >= 33) {
-            // declare here the geocodeListener, as it requires Android API 33
-            geocoder.getFromLocationName(locationName, 5, geocodeListener)
-        } else {*/
-            val addressList = geocoder.getFromLocationName(locationName, 5)
-            // For Android SDK < 33, the addresses list will be still obtained from the getFromLocation() method
-            if (addressList.isNullOrEmpty()) {
-                binding.textviewFirst.text = "No addresses"
-            } else
-                for (address in addressList) {
-                    binding.textviewFirst.append("Lat: ${address.latitude} Long: ${address.longitude}\n")
-                }
+        /* if (Build.VERSION.SDK_INT >= 33) {
+             // declare here the geocodeListener, as it requires Android API 33
+             geocoder.getFromLocationName(locationName, 5, geocodeListener)
+         } else {*/
+        val addressList = geocoder.getFromLocationName(locationName, 5)
+        // For Android SDK < 33, the addresses list will be still obtained from the getFromLocation() method
+        if (addressList.isNullOrEmpty()) {
+            binding.textviewFirst.text = "No addresses"
+        } else
+            for (address in addressList) {
+                binding.textviewFirst.append("Lat: ${address.latitude} Long: ${address.longitude}\n")
+            }
         //}
 
         // reverse geocoding: (latitude, longitude) -> Addresses
@@ -68,6 +68,18 @@ class FirstFragment : Fragment() {
         val longitude = 12.08
         binding.textviewAnother.text = "Reverse geocoding: (lat, long) -> addresses\n"
         binding.textviewAnother.append("Lat: $latitude Long: $longitude\n")
+
+        // requires min API 33 (not my phone ...)
+        /*geocoder.getFromLocation(latitude, longitude, 5, object : Geocoder.GeocodeListener {
+            override fun onGeocode(addressList: MutableList<Address>) {
+                if (addressList.isNullOrEmpty()) {
+                    binding.textviewAnother.text = "No addresses"
+                } else
+                    for (address in addressList) {
+                        binding.textviewAnother.append(address.getAddressLine(0) + "\n")
+                    }
+            }
+        })*/
         val addressList2 = geocoder.getFromLocation(latitude, longitude, 5)
         if (addressList2.isNullOrEmpty()) {
             binding.textviewAnother.text = "No addresses"
